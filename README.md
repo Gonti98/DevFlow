@@ -30,7 +30,8 @@ Work in progress
 
 ## Requirements
 
-* **Azure account** – For provisioning cloud infrastructure (IaaS) and using Azure Blob Storage.
+* **Azure account** – For provisioning cloud infrastructure (IaaS)
+and using Azure Blob Storage.
 * **OpenTofu** – Version v1.9.0 for managing infrastructure as code.
 * **Prometheus** – For monitoring.
 * **Grafana** – For visualizing metrics.
@@ -43,4 +44,3 @@ Work in progress
 This project is licensed under the MIT License – see the [LICENSE](LICENSE)
 file for details. You are free to use, modify, and distribute
 the project under the terms of this license.
-
