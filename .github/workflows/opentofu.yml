@@ -9,6 +9,8 @@ jobs:
   opentofu:
     runs-on: ubuntu-latest
     environment: prod
+    permissions:
+      id-token: write
 
     env:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
