@@ -28,10 +28,10 @@ jobs:
           rm -f install-opentofu.sh
       
       - name: Change to infrastructure directory
-        run: cd infrastructure && ls -la
+        run: cd infrastructure
 
       - name: Run OpenTofu commands
         run: |
-          tofu init
-          tofu plan
+          tofu init && \
+          tofu plan && \
           tofu apply -auto-approve
