@@ -27,6 +27,9 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Change to infrastructure directory
+        run: cd infrastructure/
+
       - name: Run OpenTofu commands
         run: |
           tofu init
