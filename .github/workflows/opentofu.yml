@@ -17,9 +17,11 @@ jobs:
 
       - name: Install OpenTofu
         run: |
-          curl -s https://install.opentofu.org | bash
-          echo "$HOME/.opentofu/bin" >> $GITHUB_PATH
-
+          curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh && \
+          chmod +x install-opentofu.sh && \
+          ./install-opentofu.sh --install-method deb && \
+          rm -f install-opentofu.sh
+          
       - name: Login to Azure
         uses: azure/login@v1
         with:
