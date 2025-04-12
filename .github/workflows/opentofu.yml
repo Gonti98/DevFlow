@@ -8,6 +8,8 @@ on:
 jobs:
   opentofu:
     runs-on: ubuntu-latest
+    environment: prod
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -29,4 +31,3 @@ jobs:
           tofu init
           tofu plan
           tofu apply -auto-approve
-
