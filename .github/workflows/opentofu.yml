@@ -15,20 +15,20 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Install OpenTofu
         run: |
           curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh && \
           chmod +x install-opentofu.sh && \
           ./install-opentofu.sh --install-method deb && \
           rm -f install-opentofu.sh
-          
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
+      
       - name: Change to infrastructure directory
-        run: cd infrastructure/
+        run: cd infrastructure && ls -la
 
       - name: Run OpenTofu commands
         run: |
