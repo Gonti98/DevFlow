@@ -1,0 +1,32 @@
+name: OpenTofu Azure Storage Setup
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  opentofu:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install OpenTofu
+        run: |
+          curl -s https://install.opentofu.org | bash
+          echo "$HOME/.opentofu/bin" >> $GITHUB_PATH
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Run OpenTofu commands
+        run: |
+          tofu init
+          tofu plan
+          tofu apply -auto-approve
+
