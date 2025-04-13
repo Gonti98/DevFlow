@@ -1,3 +1,8 @@
+variable "ARM_SUBSCRIPTION_ID" {
+  description = "Azure Subscription ID"
+  type        = string
+}
+
 provider "azurerm" {
   features {}
   subscription_id = var.ARM_SUBSCRIPTION_ID
