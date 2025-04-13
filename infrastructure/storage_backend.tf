@@ -1,5 +1,6 @@
 provider "azurerm" {
   features {}
+  subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 }
 
 resource "azurerm_resource_group" "tf_backend" {
