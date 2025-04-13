@@ -1,39 +1,33 @@
-name: OpenTofu Azure Storage Setup
-
 on:
   push:
     branches:
-      - '**'
-      
+      - "**"
+
 jobs:
-  opentofu:
-    env:
-      ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-      ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  OpenTofu:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
-      
+      pull-requests: write
+    defaults:
+      run:
+        working-directory: ${{ env.tf_actions_working_dir }}
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
+      - uses: opentofu/setup-opentofu@v1
+      - name: OpenTofu fmt
+        id: fmt
+        run: tofu fmt -check
+        continue-on-error: true
+      - name: OpenTofu Init
+        id: init
+        run: tofu init
 
-      - name: Login to Azure
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: OpenTofu Validate
+        id: validate
+        run: tofu validate -no-color
 
-      - name: Install OpenTofu
-        run: |
-          curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh && \
-          chmod +x install-opentofu.sh && \
-          ./install-opentofu.sh --install-method deb && \
-          rm -f install-opentofu.sh
+      - name: OpenTofu Plan
+        id: plan
+        run: tofu plan -no-color
+        continue-on-error: true
 
-      - name: Run OpenTofu commands
-        run: |
-          tofu init && \
-          tofu plan && \
-          tofu apply -auto-approve
