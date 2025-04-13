@@ -31,3 +31,7 @@ jobs:
         run: tofu plan -no-color
         continue-on-error: true
 
+      - name: OpenTofu Apply
+        id: apply
+        run: tofu apply -auto-approve
+        continue-on-error: true
