@@ -10,7 +10,7 @@ jobs:
       pull-requests: write
     defaults:
       run:
-        working-directory: ${{ env.tf_actions_working_dir }}
+        working-directory: ./infrastructure
     steps:
       - uses: actions/checkout@v3
       - uses: opentofu/setup-opentofu@v1
