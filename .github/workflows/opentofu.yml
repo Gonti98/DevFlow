@@ -12,7 +12,7 @@ jobs:
       run:
         working-directory: ./infrastructure
     env:
-      SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
     steps:
       - uses: actions/checkout@v3
       - uses: opentofu/setup-opentofu@v1
